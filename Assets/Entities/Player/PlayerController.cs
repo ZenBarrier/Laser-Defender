@@ -5,7 +5,10 @@ public class PlayerController : MonoBehaviour {
 
     public float speed = 12f;
 
-    public float spriteWidth = 1;
+    public float spriteWidth = 1f;
+    public GameObject attack;
+    public float attackSpeed = 10f;
+    public float firingRate = 0.3f;
 
     float minX;
     float maxX;
@@ -31,5 +34,20 @@ public class PlayerController : MonoBehaviour {
         float bounded = Mathf.Clamp(this.transform.position.x, minX, maxX);
 
         this.transform.position = new Vector2(bounded, this.transform.position.y);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            InvokeRepeating("FireAttack", 0.00001f, firingRate);
+        }
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            CancelInvoke("FireAttack");
+        }
 	}
+
+    void FireAttack()
+    {
+        GameObject fire = Instantiate(attack, this.transform.position, Quaternion.identity) as GameObject;
+        fire.GetComponent<Rigidbody2D>().velocity = new Vector2(0, attackSpeed);
+    }
 }
