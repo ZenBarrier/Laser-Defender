@@ -7,6 +7,7 @@ public class EnemyBehavior : MonoBehaviour {
     public float attackSpeed = 10f;
     public GameObject attack;
     public float shotsPerSecond = 0.5f;
+    public int scoreValue = 150;
 
 	void OnTriggerEnter2D(Collider2D col)
     {
@@ -17,6 +18,7 @@ public class EnemyBehavior : MonoBehaviour {
             missile.hit();
             if (health <= 0f)
             {
+                ScoreKeeper.Score(scoreValue);
                 Destroy(gameObject);
             }
         }
