@@ -15,7 +15,7 @@ public class EnemySpawner : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        SpawnUntilFull();
+        SpawnEnemies();
         Vector3 leftMost = Camera.main.ViewportToWorldPoint(new Vector3(0,0,0));
         Vector3 rightMost = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, 0));
         minX = leftMost.x + width/2;
