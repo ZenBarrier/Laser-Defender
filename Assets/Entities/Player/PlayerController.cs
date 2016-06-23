@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour {
     public GameObject attack;
     public float attackSpeed = 10f;
     public float firingRate = 0.3f;
+    public float health = 150f;
 
     float minX;
     float maxX;
@@ -49,5 +50,19 @@ public class PlayerController : MonoBehaviour {
     {
         GameObject fire = Instantiate(attack, this.transform.position, Quaternion.identity) as GameObject;
         fire.GetComponent<Rigidbody2D>().velocity = new Vector2(0, attackSpeed);
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        Projectile missile = col.GetComponent<Projectile>();
+        if (missile && missile.tag != "Player")
+        {
+            health -= missile.GetDamage();
+            missile.hit();
+            if (health <= 0f)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 }
