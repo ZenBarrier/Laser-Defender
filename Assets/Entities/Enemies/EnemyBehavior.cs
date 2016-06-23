@@ -11,7 +11,7 @@ public class EnemyBehavior : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D col)
     {
         Projectile missile = col.GetComponent<Projectile>();
-        if (missile && missile.tag != "Enemy")
+        if (missile)
         {
             health -= missile.GetDamage();
             missile.hit();
