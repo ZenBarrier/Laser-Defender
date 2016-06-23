@@ -14,16 +14,21 @@ public class EnemySpawner : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        foreach(Transform child in transform)
-        {
-            GameObject enemy = Instantiate(enemyPrefab, child.transform.position, Quaternion.identity) as GameObject;
-            enemy.transform.parent = child.transform;
-        }
+        SpawnEnemies();
         Vector3 leftMost = Camera.main.ViewportToWorldPoint(new Vector3(0,0,0));
         Vector3 rightMost = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, 0));
         minX = leftMost.x + width/2;
         maxX = rightMost.x - width/2;
         direction = new Vector3(-1, 0, 0);
+    }
+
+    void SpawnEnemies()
+    {
+        foreach (Transform child in transform)
+        {
+            GameObject enemy = Instantiate(enemyPrefab, child.transform.position, Quaternion.identity) as GameObject;
+            enemy.transform.parent = child.transform;
+        }
     }
 
     void OnDrawGizmos()
@@ -32,13 +37,36 @@ public class EnemySpawner : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
+        MoveFormation();
+        if (IsFormationEmpty())
+        {
+            Debug.Log("all dead");
+            SpawnEnemies();
+        }
+	}
+
+    void MoveFormation()
+    {
         transform.position += direction * Time.deltaTime * speed;
         float bounded = Mathf.Clamp(transform.position.x, minX, maxX);
-        transform.position = new Vector2(bounded,transform.position.y);
-        if(minX == bounded || maxX == bounded)
+        transform.position = new Vector2(bounded, transform.position.y);
+        if (minX == bounded || maxX == bounded)
         {
             direction *= -1;
         }
-	}
+    }
+
+    bool IsFormationEmpty()
+    {
+        foreach(Transform child in this.transform)
+        {
+            if(child.childCount > 0)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 }
