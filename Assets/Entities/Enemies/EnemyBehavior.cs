@@ -8,8 +8,15 @@ public class EnemyBehavior : MonoBehaviour {
     public GameObject attack;
     public float shotsPerSecond = 0.5f;
     public int scoreValue = 150;
+    public AudioClip spawnSound;
+    public AudioClip destroySound;
 
-	void OnTriggerEnter2D(Collider2D col)
+    void Spawned()
+    {
+        AudioSource.PlayClipAtPoint(spawnSound, Camera.main.transform.position, 0.5f);
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
     {
         Projectile missile = col.GetComponent<Projectile>();
         if (missile)
@@ -18,10 +25,16 @@ public class EnemyBehavior : MonoBehaviour {
             missile.hit();
             if (health <= 0f)
             {
-                ScoreKeeper.Score(scoreValue);
-                Destroy(gameObject);
+                Die();
             }
         }
+    }
+
+    void Die()
+    {
+        ScoreKeeper.Score(scoreValue);
+        AudioSource.PlayClipAtPoint(destroySound, Camera.main.transform.position, 0.5f);
+        Destroy(gameObject);
     }
 
     void Update()
