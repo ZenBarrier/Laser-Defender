@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour {
     public float attackSpeed = 10f;
     public float firingRate = 0.3f;
     public float health = 150f;
+    public int lives = 1;
 
     float minX;
     float maxX;
@@ -62,6 +63,11 @@ public class PlayerController : MonoBehaviour {
             if (health <= 0f)
             {
                 Destroy(gameObject);
+                lives--;
+                if (lives <= 0)
+                {
+                    LevelManager.LoadNextLevel();
+                }
             }
         }
     }

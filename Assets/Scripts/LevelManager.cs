@@ -17,7 +17,7 @@ public class LevelManager : MonoBehaviour {
         Application.Quit(); //only works in PC build. Bad for mobiles
     }
 
-    public void LoadNextLevel()
+    public static void LoadNextLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }

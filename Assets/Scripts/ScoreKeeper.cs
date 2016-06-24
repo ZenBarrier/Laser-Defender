@@ -25,4 +25,8 @@ public class ScoreKeeper : MonoBehaviour {
         score = 0;
         scoreText.text = score.ToString();
     }
+    public static int GetScore()
+    {
+        return score;
+    }
 }
