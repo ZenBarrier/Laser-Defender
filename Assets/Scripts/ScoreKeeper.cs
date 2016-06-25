@@ -23,7 +23,6 @@ public class ScoreKeeper : MonoBehaviour {
 	public static void Reset()
     {
         score = 0;
-        scoreText.text = score.ToString();
     }
     public static int GetScore()
     {

@@ -11,7 +11,7 @@ public class EnemyBehavior : MonoBehaviour {
     public AudioClip spawnSound;
     public AudioClip destroySound;
 
-    void Spawned()
+    void SpawnSound()
     {
         AudioSource.PlayClipAtPoint(spawnSound, Camera.main.transform.position, 0.5f);
     }
