@@ -10,6 +10,7 @@ public class EnemyBehavior : MonoBehaviour {
     public int scoreValue = 150;
     public AudioClip spawnSound;
     public AudioClip destroySound;
+    public GameObject damageEffect;
 
     void SpawnSound()
     {
@@ -23,6 +24,7 @@ public class EnemyBehavior : MonoBehaviour {
         {
             health -= missile.GetDamage();
             missile.hit();
+            Instantiate(damageEffect, transform.position, Quaternion.identity);
             if (health <= 0f)
             {
                 Die();
