@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour {
     public float firingRate = 0.3f;
     public float health = 150f;
     public int lives = 1;
-    public GameObject damageEffect;
 
     float minX;
     float maxX;
@@ -61,7 +60,6 @@ public class PlayerController : MonoBehaviour {
         {
             health -= missile.GetDamage();
             missile.hit();
-            Instantiate(damageEffect, transform.position, Quaternion.identity);
             if (health <= 0f)
             {
                 Destroy(gameObject);
